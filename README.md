@@ -4,11 +4,11 @@ ASCII loader bars for [Claude Code](https://code.claude.com) usage, rendered in
 the status line. The filled part of each bar is the quota you have **burned**, so
 the bar fills up as you work.
 
-```
-Sonnet 5 · ~/dev/project
-5h  [▉▉▉▉▉▉▉▋░░░░░░░░░░░░░░░░]  32%  eta 2h0m
-7d  [▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉░░░]  88%  eta 3d22h
-```
+<p align="center">
+  <img src="assets/demo.gif"
+       alt="Usage bars filling up in the Claude Code status line, green to yellow to red"
+       width="820">
+</p>
 
 - **line 1** — model name and current directory (relative to `$HOME`)
 - **5h** — rolling 5-hour rate-limit window
@@ -21,9 +21,17 @@ until that window resets.
 
 ## Preview
 
+Run it with sample data, without starting Claude Code:
+
 ```sh
 ./preview.sh          # default sample data
 ./preview.sh 15 55    # 5h at 15%, 7d at 55%
+```
+
+```
+Sonnet 5 · ~/dev/project
+5h  [▉▉▉▉▉▉▉▋░░░░░░░░░░░░░░░░]  32%  eta 2h0m
+7d  [▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉░░░]  88%  eta 3d22h
 ```
 
 ## Requirements
