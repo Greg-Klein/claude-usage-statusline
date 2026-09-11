@@ -10,8 +10,9 @@ NOW=$(date +%s)
 
 printf '{
   "model": { "display_name": "Sonnet 5" },
+  "effort": { "level": "high" },
   "workspace": { "current_dir": "%s/dev/project" },
-  "context_window": { "used_percentage": 41 },
+  "context_window": { "used_percentage": 41, "context_window_size": 200000 },
   "rate_limits": {
     "five_hour":  { "used_percentage": %s, "resets_at": %s },
     "seven_day":  { "used_percentage": %s, "resets_at": %s }

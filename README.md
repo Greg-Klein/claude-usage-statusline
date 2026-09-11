@@ -1,23 +1,26 @@
 # claude-usage-statusline
 
-ASCII loader bars for [Claude Code](https://code.claude.com) usage, rendered in
-the status line. The filled part of each bar is the quota you have **burned**, so
+Braille loader bars for [Claude Code](https://code.claude.com) usage, rendered
+in the status line. The filled part of each bar is the quota you have **burned**, so
 the bar fills up as you work.
 
 <p align="center">
   <img src="assets/demo.gif"
-       alt="Usage bars filling up in the Claude Code status line, green to yellow to red"
+       alt="Three usage bars filling up in the Claude Code status line: 5h, 7d and context, green to yellow to red"
        width="820">
 </p>
 
-- **line 1** — model name and current directory (relative to `$HOME`)
+- **line 1** — model name, reasoning effort and the current directory
+  (relative to `$HOME`)
 - **5h** — rolling 5-hour rate-limit window
 - **7d** — weekly rate-limit window
-- **ctx** — context-window usage, shown only as a fallback when rate-limit data
-  isn't available
+- **context** — context-window usage, in a second column beside the first
+  rate-limit bar so three bars fit in three rows
 
 Bars are green, turn yellow at 60% consumed and red at 85%. `eta` is the time
-until that window resets.
+until that window resets. Braille cells are inset on all four sides, so
+neither the cells nor the rows ever touch; in the terminal the unfilled cells
+use the same glyph in dark grey, shown as `⠄` above for contrast.
 
 ## Preview
 
@@ -29,18 +32,24 @@ Run it with sample data, without starting Claude Code:
 ```
 
 ```
-Sonnet 5 · ~/dev/project
-5h  [▉▉▉▉▉▉▉▋░░░░░░░░░░░░░░░░]  32%  eta 2h0m
-7d  [▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉░░░]  88%  eta 3d22h
+Sonnet 5 high  · ~/dev/project
+5h  [⣿⣿⣿⣿⣿⣿⣿⣿⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄]  32%  eta 2h0m    context [⣿⣿⣿⣿⣿⠄⠄⠄⠄⠄⠄⠄]  41%
+7d  [⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠄⠄⠄]  88%  eta 3d22h
 ```
 
 ## Requirements
 
 - `bash`
 - [`jq`](https://jqlang.org/) — `brew install jq` / `apt install jq`
+- A terminal font carrying braille (U+2800..U+28FF): DejaVu Sans Mono, Fira
+  Code, JetBrains Mono, Cascadia Code, Iosevka and the Nerd Fonts all do.
+  Menlo, Monaco and SF Mono do not, and the fallback font a terminal picks can
+  render the cells at the wrong width. Set `CLAUDE_BAR_STYLE=blocks` for block
+  glyphs instead, which every terminal font carries.
 - The `5h` and `7d` bars need a **Claude.ai Pro or Max** subscription and appear
-  only after the first API response in a session. Without them you get the `ctx`
-  line.
+  only after the first API response in a session. The `context` bar and the
+  effort label appear on their own, and each part is skipped when its field is
+  absent.
 
 ## Install
 
@@ -105,6 +114,7 @@ Override with environment variables (e.g. set them in the `command`:
 | `CLAUDE_BAR_WIDTH`  | `24`    | Bar length in cells             |
 | `CLAUDE_BAR_WARN`   | `60`    | % consumed that turns bars yellow |
 | `CLAUDE_BAR_CRIT`   | `85`    | % consumed that turns bars red   |
+| `CLAUDE_BAR_STYLE`  | `braille` | `blocks` for fonts without braille |
 
 For anything else (glyphs, colors, which lines show), edit the script — it's
 short and commented.
