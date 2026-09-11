@@ -36,6 +36,34 @@ until that window resets.
 
 ## Install
 
+```sh
+curl -fsSL https://raw.githubusercontent.com/Greg-Klein/claude-usage-statusline/main/install.sh | bash
+```
+
+That copies the script to `~/.claude/statusline.sh` and adds the `statusLine`
+block to `~/.claude/settings.json` (the old file is backed up next to it, other
+settings are left alone). Re-run it any time to update. Needs `jq` and `curl`.
+
+Tweak it with environment variables:
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/Greg-Klein/claude-usage-statusline/main/install.sh \
+  | BAR_WIDTH=32 REFRESH=0 bash
+```
+
+| Variable            | Default     | Meaning                                        |
+| ------------------- | ----------- | ---------------------------------------------- |
+| `CLAUDE_CONFIG_DIR` | `~/.claude` | Where to install                               |
+| `BAR_WIDTH`         | `24`        | Bar length, written into the `command`         |
+| `REFRESH`           | `10`        | `refreshInterval` in seconds, `0` to leave out |
+
+`refreshInterval` keeps the `eta` countdown moving while the session is idle.
+
+Claude Code reloads settings automatically, so just start or resume a session.
+
+<details>
+<summary>Manual install</summary>
+
 1. Copy the script somewhere stable and make it executable:
 
    ```sh
@@ -57,10 +85,7 @@ until that window resets.
    }
    ```
 
-   `refreshInterval` (seconds) keeps the `eta` countdown moving while the session
-   is idle. Remove it to update only on activity.
-
-3. Claude Code reloads settings automatically. Start or resume a session.
+</details>
 
 ## Configuration
 
