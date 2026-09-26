@@ -80,7 +80,7 @@ draw_bar() {
     [ "$rem" -gt 0 ] && filled="${filled}${HALF}"
     [ "$empty" -gt 0 ] && { printf -v e "%${empty}s"; blank="${e// /$FULL}"; }
 
-    printf '%s[%s%s%s%s%s]%s' "$DIM" "$color" "$filled" "$SPENT" "$blank" "$DIM" "$RESET"
+    printf '%s[%s%s%s%s%s%s]%s' "$DIM" "$color" "$filled" "$SPENT" "$blank" "$RESET" "$DIM" "$RESET"
 }
 
 eta_str() {
